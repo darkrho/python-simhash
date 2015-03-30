@@ -117,7 +117,8 @@ static PyObject *weighted_fingerprint(PyObject *self, PyObject *args)
     PY_LONG_LONG result = 0;
     for (i=0; i < HASHBITS; ++i){
         /* values often end up close to 0, but not precisely 0, due to FP rounding */
-        result |= ((PY_LONG_LONG)(sums[i] > ALMOST_0)) << i;
+        result |= (PY_LONG_LONG)(sums[i] > ALMOST_0);
+        result <<= 1;
     }
     return PyLong_FromLongLong(result);
 }
